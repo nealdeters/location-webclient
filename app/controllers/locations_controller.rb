@@ -31,18 +31,27 @@ class LocationsController < ApplicationController
   end
 
   def edit
-    @location = Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/locations/#{params[:id]}").body)
+    # @location = Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/locations/#{params[:id]}").body)
+    @location = Location.find(params[:id])
   end
 
   def update
-    @location = Unirest.patch("https://polar-falls-44137.herokuapp.com/locations/#{params[:id]}", 
-                    headers:{ "Accept" => "application/json" }, 
-                    parameters:{ street_address: params[:street_address],
-                                 city: params[:city],
-                                 state: params[:state],
-                                 zipcode: params[:zipcode],
-                                 country: params[:country]
-                    }).body
+    @location = Location.find(params[:id])
+    @location.update({ 
+                     street_address: params[:street_address],
+                     city: params[:city],
+                     state: params[:state],
+                     zipcode: params[:zipcode],
+                     country: params[:country]
+                    })
+    # @location = Unirest.patch("https://polar-falls-44137.herokuapp.com/locations/#{params[:id]}", 
+    #                 headers:{ "Accept" => "application/json" }, 
+    #                 parameters:{ street_address: params[:street_address],
+    #                              city: params[:city],
+    #                              state: params[:state],
+    #                              zipcode: params[:zipcode],
+    #                              country: params[:country]
+    #                 }).body
     render :show
   end
 
