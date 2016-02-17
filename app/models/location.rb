@@ -16,12 +16,12 @@ class Location
   end
 
   def destroy
-    Unirest.delete("http://localhost:3000/locations/#{id}", 
+    Unirest.delete("https://polar-falls-44137.herokuapp.com/locations/#{id}", 
                     headers:{ "Accept" => "application/json" }).body
   end
 
   def self.find(id)
-    Location.new(Unirest.get("http://localhost:3000/locations/#{id}").body)
+    Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/locations/#{id}").body)
   end
 
   def self.all
@@ -35,6 +35,6 @@ class Location
 
     # locations
 
-    Unirest.get("http://localhost:3000/locations").body.map { |api_location| Location.new(api_location) }
+    Unirest.get("https://polar-falls-44137.herokuapp.com/locations").body.map { |api_location| Location.new(api_location) }
   end
 end

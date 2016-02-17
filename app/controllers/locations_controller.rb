@@ -12,7 +12,7 @@ class LocationsController < ApplicationController
   end
 
   def create
-    response = Unirest.post("http://localhost:3000/locations", 
+    response = Unirest.post("https://polar-falls-44137.herokuapp.com/locations", 
                     headers:{ "Accept" => "application/json" }, 
                     parameters:{ street_address: params[:street_address],
                                  city: params[:city],
@@ -31,11 +31,11 @@ class LocationsController < ApplicationController
   end
 
   def edit
-    @location = Location.new(Unirest.get("http://localhost:3000/locations/#{params[:id]}").body)
+    @location = Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/locations/#{params[:id]}").body)
   end
 
   def update
-    @location = Unirest.patch("http://localhost:3000/locations/#{params[:id]}", 
+    @location = Unirest.patch("https://polar-falls-44137.herokuapp.com/locations/#{params[:id]}", 
                     headers:{ "Accept" => "application/json" }, 
                     parameters:{ street_address: params[:street_address],
                                  city: params[:city],
