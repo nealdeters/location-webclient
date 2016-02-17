@@ -1,5 +1,9 @@
-<%= location["street_address"] %>
-<%= location["city"] %>
-<%= location["state"] %>
-<%= location["zipcode"] %>
-<%= location["country"] %>
+<%= location.street_address %>
+<%= location.city %>
+<%= location.state %>
+<%= location.zipcode %>
+<%= location.country %>
+
+<%= link_to "View", "/locations/#{location.id}", class: "btn btn-default" %>
+<%= link_to "Edit", "/locations/#{location.id}/edit", class: "btn btn-info" %>
+<%= link_to "Delete", "/locations/#{location.id}", method: :delete, class: "btn btn-danger", data: {confirm: "Are you sure?"}  %>
