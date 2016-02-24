@@ -16,7 +16,7 @@ class Location
   end
 
   def update(params)
-    Unirest.patch("https://polar-falls-44137.herokuapp.com/locations/#{id}", 
+    Unirest.patch("https://polar-falls-44137.herokuapp.com/api/v1/locations.json/#{id}", 
                         headers:{ "Accept" => "application/json" }, 
                         parameters: params).body
   end
@@ -27,7 +27,7 @@ class Location
   end
 
   def self.find(id)
-    Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/locations/#{id}").body)
+    Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/api/v1/locations.json/#{id}").body)
   end
 
   def self.all
@@ -41,6 +41,6 @@ class Location
 
     # locations
 
-    Unirest.get("https://polar-falls-44137.herokuapp.com/locations").body.map { |api_location| Location.new(api_location) }
+    Unirest.get("https://polar-falls-44137.herokuapp.com/api/v1/locations.json").body.map { |api_location| Location.new(api_location) }
   end
 end
