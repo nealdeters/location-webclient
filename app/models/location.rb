@@ -16,18 +16,20 @@ class Location
   end
 
   def update(params)
-    Unirest.patch("https://polar-falls-44137.herokuapp.com/api/v1/locations.json/#{id}", 
-                        headers:{ "Accept" => "application/json" }, 
+    Unirest.patch("#{ENV['API_BASE_URL']}/locations/#{id}", 
+                        headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['API_EMAIL']}", "Authorization" => "Token token=#{ENV['API_KEY']}" }, 
                         parameters: params).body
   end
 
   def destroy
-    Unirest.delete("https://polar-falls-44137.herokuapp.com/locations/#{id}", 
-                    headers:{ "Accept" => "application/json" }).body
+    Unirest.delete("#{ENV['API_BASE_URL']}/locations/#{id}", 
+                    headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['API_EMAIL']}", "Authorization" => "Token token=#{ENV['API_KEY']}" }).body
   end
 
   def self.find(id)
-    Location.new(Unirest.get("https://polar-falls-44137.herokuapp.com/api/v1/locations.json/#{id}").body)
+    Location.new(Unirest.get("#{ENV['API_BASE_URL']}/locations/#{id}", 
+                    headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['API_EMAIL']}", "Authorization" => "Token token=#{ENV['API_KEY']}" }
+                ).body)
   end
 
   def self.all
@@ -41,6 +43,8 @@ class Location
 
     # locations
 
-    Unirest.get("https://polar-falls-44137.herokuapp.com/api/v1/locations.json").body.map { |api_location| Location.new(api_location) }
+    Unirest.get("#{ENV['API_BASE_URL']}/locations", 
+                headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['API_EMAIL']}", "Authorization" => "Token token=#{ENV['API_KEY']}" }
+                ).body.map { |api_location| Location.new(api_location) }
   end
 end

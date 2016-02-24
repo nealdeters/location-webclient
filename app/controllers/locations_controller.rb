@@ -12,8 +12,8 @@ class LocationsController < ApplicationController
   end
 
   def create
-    response = Unirest.post("https://polar-falls-44137.herokuapp.com/api/v1/locations.json", 
-                    headers:{ "Accept" => "application/json" }, 
+    response = Unirest.post("#{ENV['API_BASE_URL']}/locations", 
+                    headers:{ "Accept" => "application/json", "X-User-Email" => "#{ENV['API_EMAIL']}", "Authorization" => "Token token=#{ENV['API_KEY']}" }, 
                     parameters:{ street_address: params[:street_address],
                                  city: params[:city],
                                  state: params[:state],
